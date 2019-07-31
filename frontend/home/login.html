@@ -1,0 +1,36 @@
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_content">
+                        <div class="container">
+                            <div class="jumbotron">
+                                <h4>Login to continue</h4>
+                                <div class="alert alert-info text-info" ng-if="data_result">{{data_result}}</div>
+                                <form name="userForm" class="navbar-form navbar-left" ng-submit="submitForm()">
+                                    <div class="form-group">
+                                        <input type="email" name='email' class="form-control" placeholder="email"
+                                            ng-model="user.email" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" name='password' class="form-control"
+                                            placeholder="password" ng-model="user.password" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-default">Login</button>
+                                    <span style="color:red" ng-show="userForm.email.$dirty && userForm.email.$invalid">
+                                        <span ng-show="userForm.email.$error.required">Email is required.</span>
+                                        <span ng-show="userForm.email.$error.email">Invalid email address.</span>
+                                    </span>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /page content -->

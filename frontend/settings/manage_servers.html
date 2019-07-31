@@ -1,0 +1,84 @@
+<header ng-include="'frontend/templates/sidenav.html'">                    
+</header>
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_content">
+                        <div class='alert alert-info alert-dismissable' ng-show="settings_data.data_result != null">
+                            <a href='' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+                            <strong>{{settings_data.data_result}}
+                        </div>
+                        <!--code of add domain-->
+                        <div class="container">
+                            <div class="jumbotron">
+                                <h4>Add New Domain here.</h4>
+                                <div class='text-info' ng-show="settings_data.data_result1 != null">{{settings_data.data_result1}}</div>
+                                <form class="navbar-form navbar-left" ng-submit="submitForm()">
+                                    <input type="text" class="form-control" placeholder="domain" ng-model="form.domain" required>
+                                    <input type="text" class="form-control" placeholder="username" ng-model="form.username" required>
+                                    <input type="text" class="form-control" placeholder="mysql password" ng-model="form.password" required>
+                                    <input type="text" class="form-control" placeholder="db name" ng-model="form.dbname" required>
+                                    <button type="submit" class="btn btn-default">Add domain</button>
+                                </form>
+                            </div>
+                        </div>
+                        <!--code of update domain passwords-->
+                        <div class="container">
+                            <div class="jumbotron">
+                                <h4>Update Domain Passwords here</h4>
+                                <div class='text-info' ng-show="settings_data.data_result2 != null">{{settings_data.data_result2}}</div>
+                                <form class="navbar-form navbar-left"  ng-submit="submitForm()">
+                                    <input type="text" class="form-control" placeholder="domain"  ng-model="form.update_domain" required>
+                                    <input type="text" class="form-control" placeholder="username" ng-model="form.update_username" required>
+                                    <input type="text" class="form-control" placeholder="mysql password"  ng-model="form.update_password" required>
+                                    <input type="text" class="form-control" placeholder="db name" ng-model="form.update_dbname" required>
+                                    <button type="submit" class="btn btn-default">Update password</button>
+                                </form>
+                            </div>
+                        </div>
+
+
+                        <!--delete domain code-->
+                        <div class="container">
+                            <div class="jumbotron">
+                                <h4>Delete A Domain Here</h4>
+                                <div class='text-info' ng-show="settings_data.data_result3 != null">{{settings_data.data_result3}}</div>
+                                <form class="navbar-form navbar-left" ng-submit="submitForm()">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" ng-model="form.delete" placeholder="domain" required>
+                                    </div>
+                                    <button type="submit"  class="btn btn-default">Delete domain</button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!--change user redirection--> 
+
+                        <div class="container">
+                            <div class="jumbotron">
+                                <h4>Change user redirection </h4>
+                                <div class='text-info' ng-show="settings_data.data_result4 != null">{{settings_data.data_result4}}</div>
+                                <form class="navbar-form navbar-left" ng-submit="submitForm()">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" ng-model="form.old_domain" placeholder="http://old.info"  required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" ng-model="form.new_domain" placeholder="http://new.info"  required>
+                                    </div>
+                                    <button type="submit"  class="btn btn-default">Change Redirection</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /page content -->
+
+

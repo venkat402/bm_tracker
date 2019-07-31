@@ -1,0 +1,11 @@
+
+Time: 2019.01.28 07.01.27
+Domain:localhost
+New Exception:MySQL connection failed: Access denied for user 'root'@'localhost' (using password: YES)
+
+
+Time: 2019.01.28 11.01.43
+Domain:localhost
+New Exception:MySQL connection failed: Unknown database 'bulkmail_bugs2'
+
+

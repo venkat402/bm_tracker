@@ -1,0 +1,41 @@
+<header ng-include="'frontend/templates/sidenav.html'">                
+</header>
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_content">
+                        <div class='alert alert-danger alert-dismissable' ng-show="home_data.dnsRecords == null">
+                            <a href='' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+                            <strong>Loading.... DNS Records 
+                        </div>
+                        <div class='alert alert-info alert-dismissable' ng-show="home_data.text_info">  
+                            <a href='' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+                            <strong>{{home_data.text_info}} Records are found : {{home_data.dnsDomainName}}
+                        </div>
+
+                        <table class="table table-striped jambo_table bulk_action" ng-repeat="row in home_data.dnsRecords"> 
+                            <thead>
+                                <tr class="headings">
+
+                                    <th scope="col"> Record </th>
+                                    <th scope="col"> Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="odd pointer" ng-repeat="row2 in row">
+                                    <th><pre>{{row.type}}</pre></th>
+                                    <td><pre>{{row2}}</pre></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /page content -->

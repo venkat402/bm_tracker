@@ -1,0 +1,114 @@
+<header ng-include="'frontend/templates/sidenav.html'">                    
+</header>
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_content">
+                        <div class="container">
+                            <form ng-submit="submitFormExpire()">
+                                <div class="jumbotron">
+                                    <h4>Add Domain Expire Date</h4>
+                                    <strong>{{settings_data.expire_data_result}}</strong>
+                                    <div class="form-group row">
+                                        <div class="col-xs-4">
+                                            <label for="ex1">Domain Name</label>
+                                            <input class="form-control" id="ex1" ng-model="form.domainName" type="text" placeholder="domain.info" required="">
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <label for="ex2">Expiry Date</label>
+                                            <input class="form-control" id="ex2" ng-model="form.expireDate" type="date" required="">
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <label for="ex3">Submit</label>
+                                            <button type="submit" class="form-control" class="btn btn-default">Add domain</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="container">
+                            <form method="post" ng-submit="submitFormData()">
+                                <div class="jumbotron">
+                                    <h4>Add Note</h4>
+                                    <p class='text-info'>{{settings_data.note_data_result}}</p>
+                                    <div class="form-group row">
+                                        <div class="col-xs-4">
+                                            <label for="ex1">Type</label>
+                                            <input class="form-control" id="ex1" ng-model="form2.typeName" type="text" placeholder="type name" required="">
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <label for="ex1">Key</label>
+                                            <input class="form-control" id="ex1" ng-model="form2.keyName"  type="text" placeholder="key name" required="">
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <label for="ex1">Value</label>
+                                            <input class="form-control" id="ex1" ng-model="form2.valueName" type="text" placeholder="value name" required="">
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <label for="ex3">Submit</label>
+                                            <button type="submit"  class="form-control" class="btn btn-default">Add</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div><h5 class="text-info">Domain Expire dataes</h5></div>
+                        <table class="table table-striped jambo_table bulk_action">
+                            <thead>
+                                <tr class="odd pointer">
+                                    <th scope="col">Sno.</th>
+                                    <th scope="col">Domain Name</th>
+                                    <th scope="col">Expiry Date(M-D-Y)</th>
+                                    <th scope="col">Days Left to expire</th>
+                                    <th scope="col">Options</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="odd pointer" ng-repeat="row in settings_data.ExpireDates"> 
+                                    <th scope="row">{{settings_data.ExpireDates.indexOf(row) + 1}}</th>
+                                    <td>{{row.note_key}}</td>
+                                    <td>{{row.note_value}}</td>
+                                    <td>{{row.daysLeft}}</td>
+                                    <td>
+                                        <span data="{{row.id}}" ng-click="remove_note(row.id)" class="glyphicon glyphicon-trash" ></span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div><h5 class="text-info">Tracker notes</h5></div>
+                        <table class="table table-striped jambo_table bulk_action">
+                            <thead>
+                                <tr class="odd pointer" >
+                                    <th scope="col">Sno.</th>
+                                    <th scope="col">Note Type</th>
+                                    <th scope="col">Note Key </th>
+                                    <th scope="col">Note Value</th>
+                                    <th scope="col">Date Of Added</th>
+                                    <th scope="col">Options</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="odd pointer" ng-repeat="row in settings_data.trackerNoteData" style='width:100%' >
+                                    <th scope="row">{{$index + 1}}</th>
+                                    <td>{{row.note_type}}</td>
+                                    <td>{{row.note_key}}</td>
+                                    <td >{{row.note_value}}</td>
+                                    <td>{{row.date_of_added}}</td>
+                                    <td>
+                                        <span data="{{row.id}}" ng-click="remove_note(row.id)" class="glyphicon glyphicon-trash" ></span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /page content -->

@@ -1,0 +1,4 @@
+#Change password 
+api/application/config/database.php
+#change passwords of bug tracker 
+api/vendors/bug/config/config_inc.php

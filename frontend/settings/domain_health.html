@@ -1,0 +1,43 @@
+<header ng-include="'frontend/templates/sidenav.html'">                    
+</header>
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="clearfix"></div>
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_content">
+                        <table class="table table-striped jambo_table bulk_action">
+                            <thead>
+                                <tr class="odd pointer">
+                                    <th scope="col">Sno.</th>
+                                    <th scope="col">Domain</th>
+                                    <th scope="col">Reverse Domain</th>
+                                    <th scope="col">Mailq</th>
+                                    <th scope="col">Abuse</th>
+                                    <th scope="col">System Usage</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="odd pointer" ng-repeat="row in settings_data.allServersRecords">
+                                    <td scope="row">{{$index + 1}}</td>
+                                    <td>{{row.domain_name}}</td>
+                                    <td>{{row.reversedns}}</td>
+                                    <td>{{row.mailq}}</td>
+                                    <td>
+                                        <div ng-if="row.findabuse == 0"><span class='glyphicon glyphicon-remove' aria-hidden='true' style='color: red;'></span></div>                                            
+                                        <div ng-if="row.findabuse == 1"><span class='glyphicon glyphicon-ok' aria-hidden='true' style='color: green;'></span></div>                                            
+                                    </td>
+                                    <td><pre>{{row.bandwidth}}</pre></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /page content -->

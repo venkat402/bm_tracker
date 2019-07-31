@@ -1,0 +1,10 @@
+{
+    "name": "admin/vendors",
+    "authors": [
+        {
+            "name": "venkat402",
+            "email": "adapala.vr@gmail.com"
+        }
+    ],
+    "require": {}
+}

@@ -1,0 +1,36 @@
+<header ng-include="'frontend/templates/sidenav.html'">                    
+</header>
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_content">
+                        <div><h5 class="text-info">Server credentials </h5></div>
+                        <table class="table table-striped jambo_table bulk_action">
+                            <thead>
+                                <tr class="headings">
+                                    <th scope="col">Sno.</th>
+                                    <th scope="col">Domain Name</th>
+                                    <th scope="col">User Name</th>
+                                    <th scope="col">Password</th>
+                                    <th scope="col">Database</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="odd pointer" ng-repeat="row in home_data.serverCredentials">
+                                    <th scope="row">{{$index + 1}}</th>
+                                    <td ng-repeat="col in row">{{col}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /page content -->
+<>

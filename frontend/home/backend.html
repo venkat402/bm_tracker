@@ -1,0 +1,28 @@
+<header ng-include="'frontend/templates/sidenav.html'">                    
+</header>
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="table-responsive">
+                    <table class="table table-striped jambo_table bulk_action">
+                        <thead>
+                            <tr class="headings">
+                                <th scope="col">#</th>
+                                <th class="column-title" ng-repeat="col in home_data.datas_keys">{{col}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd pointer"  ng-repeat="row in home_data.datas">
+                                <td>{{$index + 1}}</td>
+                                <td ng-repeat="col in row">{{col}} ({{row.domain_name}})</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+<header ng-include="'frontend/templates/sidenav.html'">                    
+</header>
+
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="clearfix"></div>
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_content">
+
+                        <table class="table table-striped jambo_table bulk_action">
+                            <thead>
+                                <tr class="odd pointer">
+                                    <th scope="col">#</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    <tr class="odd pointer" ng-repeat="(key, val) in home_data.row">
+                                        <td>{{$index + 1}}</td>
+                                        <td>{{key}}</td>
+                                        <td>{{val}}</td>
+                                    </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--bar charts--> 
+        <div class="row">
+            <!-- bar chart -->
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Clients emails usage<small>emails usage of clients this domain</small></h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div id="graph_bar10" style="width:100%; height:280px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- /page content -->
+
+<!-- /page content -->
+</div>

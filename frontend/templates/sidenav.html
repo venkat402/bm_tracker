@@ -1,0 +1,116 @@
+<!-- top navigation -->
+<div ng-controller="SearchController">
+    <div class="top_nav" >
+        <div class="nav_menu">
+            <nav>
+                <div class="nav toggle">
+                    <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <div class="title_right">
+                        <div class="col-md-3 col-sm-3 col-xs-3 form-group pull-right top_search" style="padding-top: 10px; padding-left:10px; ">
+                            <form class="input-group" ng-submit="submitSearchForm()">
+                                <input type="text" name="email" class="form-control" ng-model="Searchform.email" ng-change="searchChange(email)"  placeholder="Search client...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="submit">Go!</button>
+                                </span>
+                            </form>
+                        </div>
+                    </div>
+
+                    <li role="presentation">
+                        <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-envelope-o"></i>
+                            <span class="badge bg-green" class="dropdown" ng-show="sidenav_data.getIssues.length != 0 ">{{ sidenav_data.getIssues.length}}</span>
+                        </a>
+                        <ul id="menu1" ng-show="sidenav_data.getIssues.length != 0" class="dropdown-menu list-unstyled msg_list" role="menu">
+                            <li  ng-repeat="row in sidenav_data.getIssues">
+                                <a>
+                                    <span class="image"><img src="api/vendors/images/technohrm.jpg" alt="Image" /></span>
+                                    <span>
+                                        <span>{{row.os}}</span>
+                                        <span class="time">{{row.date_submitted * 1000| date:'dd/MM/yy hh:mm a'}}</span>
+                                    </span>
+                                    <span class="message">
+                                        {{row.summary}}
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <div class="text-center">
+                                    <a href="#!/reportbug/bug_developer">
+                                        <strong>See All Bugs</strong>
+                                        <i class="fa fa-angle-right"></i>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- /top navigation -->
+
+
+
+    <!-- page content -->
+    <div class="right_col" role="main" ng-show="searchings.client_email">
+        <div class="">
+            <div class="clearfix"></div>            
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_content">
+                            <div class="table-responsive">          
+                                <table class="table table-striped jambo_table bulk_action">
+                                    <thead>
+                                        <tr class="headings">
+                                            <th>#</th>
+                                            <th>Client Email</th>
+                                            <th>Client Redirect</th>
+                                            <th>Client CEO</th>
+                                            <th>CEO Email</th>
+                                            <th>CEO Redirect</th>
+                                        </tr>    
+                                    </thead>
+                                    <tbody>
+                                    <div ng-if="searchings.resultOfSearchs.customer_email == null && searchings.resultOfSearchs.admin_email_db == null">
+                                        <div class='alert alert-danger alert-dismissable' ng-show='searchings.client_email'>
+                                            <a href='' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+                                            <strong>Search results not found : {{searchings.client_email}}
+                                        </div>
+                                    </div>
+                                    <div ng-if="searchings.resultOfSearchs.customer_email || searchings.resultOfSearchs.admin_email_db">
+                                        <div class='alert alert-success alert-dismissable' ng-show='searchings.client_email'>
+                                            <a href='' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+                                            <strong>Search results for : {{searchings.client_email}}
+                                        </div>
+                                    </div>
+
+                                    <tr ng-repeat="data in searchings.resultOfSearchs.customer_email track by $index">
+                                        <th>{{$index + 1}}</th>
+                                        <td>{{ searchings.resultOfSearchs.customer_email[$index]}}</td>
+                                        <td>{{ searchings.resultOfSearchs.redirect_urls[$index]}}</td>
+                                        <td>{{ searchings.resultOfSearchs.admin_emails[$index]}}</td>
+                                        <td>{{ searchings.resultOfSearchs.admin_email_db[$index]}}</td>
+                                        <td>{{ searchings.resultOfSearchs.admin_redirect[$index]}}</td>
+                                    </tr>
+                                    <tr ng-show="searchings.resultOfSearchs.customer_email == null" ng-repeat="data in searchings.resultOfSearchs.admin_email_db track by $index">
+                                        <th>{{$index + 1}}</th>
+                                        <td>{{ searchings.resultOfSearchs.customer_email[$index]}}</td>
+                                        <td>{{ searchings.resultOfSearchs.redirect_urls[$index]}}</td>
+                                        <td>{{ searchings.resultOfSearchs.admin_emails[$index]}}</td>
+                                        <td>{{ searchings.resultOfSearchs.admin_email_db[$index]}}</td>
+                                        <td>{{ searchings.resultOfSearchs.admin_redirect[$index]}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

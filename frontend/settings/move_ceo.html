@@ -1,0 +1,65 @@
+<header ng-include="'frontend/templates/sidenav.html'">                    
+</header>
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class='alert alert-info alert-dismissable' ng-show="settings_data.data2 != null">
+                        <a href='' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+                        <strong>{{settings_data.data2}}</strong>
+                    </div>
+                    <div class='alert alert-info alert-dismissable' ng-show="settings_data.data_result != null">{{settings_data.data_result}}</div>
+                    <div class="x_content">
+                        <!--code of add domain-->
+                        <div class="container">
+                            <div class="jumbotron">
+                                <h4>Move ceo to new domain here.</h4>   
+                                <form class="navbar-form navbar-left" ng-submit="submitForm()">
+                                    <input type="text" class="form-control" placeholder="Ceo email" ng-model="user.email" required>
+                                    <input type="text" class="form-control" placeholder="From domain(mail.info)" ng-model="user.fromDb" required>
+                                    <input type="text" class="form-control" placeholder="To domain(mail.info)" ng-model="user.toDb" required>
+                                    <button type="submit" class="btn btn-default">Move</button>
+                                </form>
+                                <div class="text-info">** move ceo to another domain will take upto few minutes. in this process customer campaigns will be deleted </div>
+                            </div>
+                        </div>
+
+                        <div><h5 class="text-info">processing / pednding transactions</h5></div>
+                        <table class="table table-striped jambo_table bulk_action">
+                            <thead>
+                                <tr class="odd pointer">
+                                    <th scope="col">Sno.</th>
+                                    <th scope="col">Ceo email</th>
+                                    <th scope="col">From domain</th>
+                                    <th scope="col">To domain</th>
+                                    <th scope="col">Message</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Date of added</th>
+                                    <th scope="col">Options</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="odd pointer" ng-repeat="row in settings_data.data">
+                                    <th scope="row">{{$index + 1}}</th>
+                                    <td>{{row.ceoEmail}}</td>
+                                    <td>{{row.fromDb}}</td>
+                                    <td>{{row.toDb}}</td>
+                                    <td>{{row.message}}</td>
+                                    <td>{{row.status}}</td>
+                                    <td>{{row.dateAdded}}</td>
+                                    <td>
+                                        <span data="{{row.id}}" ng-click="remove_ceo(row.id)" class="glyphicon glyphicon-trash" ></span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /page content -->
