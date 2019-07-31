@@ -550,6 +550,7 @@ class Home_model extends CI_Model
     public function alertDomainExpireDates()
     {
         $data = $this->getDomainExpireDates();
+        return $data;
         $precentServers = $this->getServers();
         $expiringDomains = '';
         foreach ($precentServers as $precentServer) {
