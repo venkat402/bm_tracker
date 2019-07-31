@@ -3,8 +3,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Home_model extends CI_Model
-{
+class Home_model extends CI_Model {
 
     public $title;
     public $content;
@@ -12,24 +11,20 @@ class Home_model extends CI_Model
     public $tracker_conn;
     public $server_conn;
 
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
     }
 
-    public function get($id)
-    {
+    public function get($id) {
         return $this->db->get_where('posts', array('id' => $id))->row();
     }
 
-    public function get_all()
-    {
+    public function get_all() {
         $query = $this->db->query('select * from domains_info');
         return $query->result_array();
     }
 
-    public function insert()
-    {
+    public function insert() {
         $this->title = 'CodeIgniter 101';
         $this->content = '<p>Say what you want about CI, it still rocks</p>';
         $this->date = time();
@@ -37,8 +32,7 @@ class Home_model extends CI_Model
         $this->db->insert('posts', $this);
     }
 
-    public function update($id)
-    {
+    public function update($id) {
         $this->title = 'CodeIgniter 101';
         $this->content = '<p>Say what you want about CI, it still rocks</p>';
         $this->date = time();
@@ -46,44 +40,37 @@ class Home_model extends CI_Model
         $this->db->update('posts', $this, array('id' => $id));
     }
 
-    public function delete($id)
-    {
+    public function delete($id) {
         $this->db->delete('posts', array('id' => $id));
     }
 
-    function get_user_info($user_id)
-    {
+    function get_user_info($user_id) {
         $query = $this->db->query("SELECT * FROM users WHERE user_id = ?", array($user_id));
         return $query->result_array();
     }
 
-    public function getServers()
-    {
+    public function getServers() {
         $result = $this->db->query("SELECT domain_name,user_name,domain_password,db_name FROM domains_info");
         return $result->result_array();
     }
 
     // get credentials of pariticular server from tracker
-    public function getCredentialsOfSingleServer($fromDb)
-    {
+    public function getCredentialsOfSingleServer($fromDb) {
         $result = $this->db->query("SELECT domain_name,user_name,domain_password,db_name FROM domains_info where domain_name = '$fromDb'");
         return $result->row_array();
     }
 
-    public function getAllData()
-    {
+    public function getAllData() {
         $result = $this->db->query("select * from domains_info");
         return $result->result_array();
     }
 
-    public function getTrackerNoteData()
-    {
+    public function getTrackerNoteData() {
         $result = $this->db->query("select * from domains_info_note");
         return $result->result_array();
     }
 
-    public function lastUpdate()
-    {
+    public function lastUpdate() {
         $result = $this->db->query("SELECT ist_time FROM domains_info ORDER BY id DESC LIMIT 1");
         $row = $result->result_array();
         $ist_time_db = $row['ist_time'];
@@ -91,8 +78,7 @@ class Home_model extends CI_Model
     }
 
     //connect to particular server
-    public function connectServer($get_domain)
-    {
+    public function connectServer($get_domain) {
         $get_domain = array_map('trim', $get_domain);
         extract($get_domain);
         $server_conn = new mysqli($domain_name, $user_name, $domain_password, $db_name);
@@ -104,16 +90,14 @@ class Home_model extends CI_Model
     }
 
     // getting time zone of india
-    public function getTimeZone()
-    {
+    public function getTimeZone() {
         date_default_timezone_set('Asia/Calcutta');
         $ist_time = date('d/m/Y h:i:s A');
         return $ist_time;
     }
 
     //clients count chart reprecenation
-    public function clientsCountChart()
-    {
+    public function clientsCountChart() {
         $domain2 = $this->getServers();
         foreach ($domain2 as $domains) {
             $domains = $domains['domain_name'];
@@ -211,8 +195,7 @@ class Home_model extends CI_Model
         return $requiredData;
     }
 
-    public function home2($domains)
-    {
+    public function home2($domains) {
         $result = $this->db->query("select * from domains_info where domain_name='$domains'");
         if ($result->num_rows > 0) {
             $row = $result->result_array();
@@ -233,8 +216,7 @@ class Home_model extends CI_Model
         return $data;
     }
 
-    public function emailsUsage()
-    {
+    public function emailsUsage() {
         $result = $this->db->query("select domain_name,emails_30days from domains_info");
         foreach ($result->result_array() as $row) {
             if (empty($row['emails_30days'])) {
@@ -247,8 +229,7 @@ class Home_model extends CI_Model
         return $maps_info;
     }
 
-    public function addDomain($data)
-    {
+    public function addDomain($data) {
         unset($data['addDomain']);
         $data = array_map('trim', $data);
         $new_domain = $data['domain'];
@@ -264,9 +245,9 @@ class Home_model extends CI_Model
             return $response;
         } else {
             $result = $this->db->query("INSERT INTO domains_info " .
-                "(domain_name,user_name,domain_password,db_name)" .
-                "VALUES " .
-                "($data)");
+                    "(domain_name,user_name,domain_password,db_name)" .
+                    "VALUES " .
+                    "($data)");
             if (!$result) {
                 $response = "failed to save the form";
             } else {
@@ -276,8 +257,7 @@ class Home_model extends CI_Model
         return $response;
     }
 
-    public function updateDomain($data)
-    {
+    public function updateDomain($data) {
         $update_domain = $data['update_domain'];
         $update_password = $data['update_password'];
         $update_dbname = $data['update_dbname'];
@@ -295,8 +275,7 @@ class Home_model extends CI_Model
         return $response;
     }
 
-    public function deleteDomain($domain_name)
-    {
+    public function deleteDomain($domain_name) {
         $domain_name = trim($domain_name['delete']);
         $existCheck = $this->db->query("select domain_name FROM domains_info WHERE domain_name = '$domain_name'");
         if (!$existCheck->num_rows() > 0) {
@@ -311,8 +290,7 @@ class Home_model extends CI_Model
         return $respose;
     }
 
-    public function searchClient($email)
-    {
+    public function searchClient($email) {
         $customer_email = null;
         $admin_emails = null;
         $redirect_urls = null;
@@ -354,8 +332,7 @@ class Home_model extends CI_Model
         return $data;
     }
 
-    public function moveCEO($data)
-    {
+    public function moveCEO($data) {
         $data = array_map('trim', $data);
         $email = $data['email'];
         $fromDb = $data['fromDb'];
@@ -408,23 +385,21 @@ class Home_model extends CI_Model
         // inserting into tracker
         $dateTime = $this->getTimeZone();
         $result = $this->db->query("INSERT INTO moveceo " .
-            "(ceoEmail,fromDb,toDb,status,message,dateAdded)" .
-            "VALUES " .
-            "('$email','$fromDb','$toDb','pending-moving','added successfully','$dateTime')");
+                "(ceoEmail,fromDb,toDb,status,message,dateAdded)" .
+                "VALUES " .
+                "('$email','$fromDb','$toDb','pending-moving','added successfully','$dateTime')");
         if (!$result) {
             return $response = 'Failed to save data';
         }
         return $data = 'Form submitted successfully';
     }
 
-    public function getmoveCEO()
-    {
+    public function getmoveCEO() {
         $result = $this->db->query("select * from moveceo");
         return $result->result_array();
     }
 
-    public function deletemoveCEO($id)
-    {
+    public function deletemoveCEO($id) {
         $result = $this->db->query("select * from moveceo where id = '$id'");
         if ($result->num_rows() > 0) {
             $result = $this->db->query("delete from moveceo where id = '$id'");
@@ -436,8 +411,7 @@ class Home_model extends CI_Model
         return $response = 'not exist';
     }
 
-    public function changeUserRedirection($data)
-    {
+    public function changeUserRedirection($data) {
         unset($data['changeRedirect']);
         extract($data);
         $result = $this->db->query("select redirect from user where redirect = '$old_domain'");
@@ -451,8 +425,7 @@ class Home_model extends CI_Model
         return $data = 'Form submitted successfully';
     }
 
-    public function trackerUnsubscribeEmail($email)
-    {
+    public function trackerUnsubscribeEmail($email) {
         $email = $this->db->escape_str($email);
         $date = date("Y-m-d H:i:s");
         $result = $this->db->query("select * from email_blacklist where email='$email' limit 1");
@@ -470,8 +443,7 @@ class Home_model extends CI_Model
         }
     }
 
-    public function addDomainExpireDate($data)
-    {
+    public function addDomainExpireDate($data) {
         unset($data['domainExpire']);
         $domainName = $data['domainName'];
         $expireDate = $data['expireDate'];
@@ -481,7 +453,7 @@ class Home_model extends CI_Model
         $dateOfAdded = $row['date_of_added'];
         if (!$result->num_rows() > 0) {
             $result = $this->db->query("INSERT INTO domains_info_note (note_type,note_key,note_value,date_of_added)"
-                . " VALUES ('domainExpire','$domainName','$expireDate','$date')");
+                    . " VALUES ('domainExpire','$domainName','$expireDate','$date')");
             if (!$result) {
                 return $response = 'Unable to save the form';
             } else {
@@ -492,15 +464,14 @@ class Home_model extends CI_Model
         }
     }
 
-    public function addTrackerNote($data)
-    {
+    public function addTrackerNote($data) {
         unset($data['addNote']);
         $typeName = $data['typeName'];
         $keyName = $data['keyName'];
         $valueName = $data['valueName'];
         $date = $this->getTimeZone();
         $result = $this->db->query("INSERT INTO domains_info_note (note_type,note_key,note_value,date_of_added)"
-            . " VALUES ('$typeName','$keyName','$valueName','$date')");
+                . " VALUES ('$typeName','$keyName','$valueName','$date')");
         if (!$result) {
             return $response = 'Unable to save the form';
         } else {
@@ -508,14 +479,12 @@ class Home_model extends CI_Model
         }
     }
 
-    public function getAllTrackerNotes()
-    {
+    public function getAllTrackerNotes() {
         $result = $this->db->query("select * from domains_info_note ORDER BY note_type");
         return $result->result_array();
     }
 
-    public function getDomainExpireDates()
-    {
+    public function getDomainExpireDates() {
         $result = $this->db->query("select * from domains_info_note where note_type = 'domainExpire'");
         foreach ($result->result_array() as $row) {
             date_default_timezone_set('Asia/Calcutta');
@@ -529,14 +498,12 @@ class Home_model extends CI_Model
         return $data;
     }
 
-    public function getDomainsInfoNoteData()
-    {
+    public function getDomainsInfoNoteData() {
         $result = $this->db->query("select * from domains_info_note");
         return $result->result_array();
     }
 
-    public function deleteDomainExpireDate($id)
-    {
+    public function deleteDomainExpireDate($id) {
         $id = trim($id);
         $result = $this->db->query("DELETE FROM domains_info_note WHERE id = '$id'");
         if (!$result) {
@@ -547,9 +514,15 @@ class Home_model extends CI_Model
         return $respose;
     }
 
-    public function alertDomainExpireDates()
-    {
+    public function alertDomainExpireDates() {
         $data = $this->getDomainExpireDates();
+        foreach ($data as $dataOne) {
+                $daysLeft = $dataOne['daysLeft'];
+                if (($daysLeft > -10 && $daysLeft < 30)) {
+                    $expiringDomains[] = $dataOne;
+                }
+        }
+        return $expiringDomains;
         return $data;
         $precentServers = $this->getServers();
         $expiringDomains = '';
@@ -567,19 +540,17 @@ class Home_model extends CI_Model
         return $expiringDomains;
     }
 
-    public function showDomainData($domain)
-    {
+    public function showDomainData($domain) {
         $result = $this->db->query("select * from domains_info where domain_name='$domain'");
         return $result->row_array();
     }
 
-    public function getCronLastUpdate()
-    {
+    public function getCronLastUpdate() {
         $result = $this->db->query("SELECT ist_time FROM domains_info ORDER BY id DESC LIMIT 1");
         return $result->row_array();
     }
-    public function dnsRecords($dnsDomainName)
-    {
+
+    public function dnsRecords($dnsDomainName) {
         $panelKey = "panel.$dnsDomainName";
         $mailDomainKey = "mail._domainkey.$dnsDomainName";
         $dmarcKey = "_dmarc.$dnsDomainName";
@@ -609,14 +580,12 @@ class Home_model extends CI_Model
         return array_merge($dnsRecords, $PanelRecord, $mailRecord, $dmarcingRecord);
     }
 
-    public function getIssues()
-    {
+    public function getIssues() {
         $result = $this->db->query("SELECT * FROM mantis_bug_table WHERE status < 80");
         return $result->result_array();
     }
 
-    public function siteUrl()
-    {
+    public function siteUrl() {
         $trackerNoteDatas = $this->getTrackerNoteData();
         foreach ($trackerNoteDatas as $trackerNoteData) {
             if ($trackerNoteData['note_type'] == 'siteUrl') {
@@ -624,4 +593,5 @@ class Home_model extends CI_Model
             }
         }
     }
+
 }
